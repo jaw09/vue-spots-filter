@@ -1,0 +1,7 @@
+@import 'bootstrap/scss/_functions.scss';
+@import './helpers/_variables';
+@import 'bootstrap/scss/bootstrap.scss';
+body {
+  font-family: 'Roboto', sans-serif !important;
+  background-color: $gray-100;
+}
