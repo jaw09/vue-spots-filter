@@ -1,19 +1,13 @@
 <template>
   <div id="app">
     <h1>Test Success</h1>
-    <router-view/>
-    {{data}}
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
   name: 'App',
-  computed: {
-    data () {
-      return this.$store.getters.data
-    }
-  },
   created () {
     const vm = this
     vm.$store.dispatch('setData')
