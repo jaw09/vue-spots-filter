@@ -5,12 +5,19 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 const state = {
-  data: {}
+  data: {},
+  zones: []
 }
 
 const mutations = {
   'SET_DATA' (state, fetchData) {
+    const tempZones = []
     state.data = fetchData
+    state.data.forEach(item => {
+      tempZones.push(item.Zone)
+    })
+    let set = new Set(tempZones)
+    state.zones = [...set]
   }
 }
 
@@ -32,6 +39,9 @@ const actions = {
 const getters = {
   data (state) {
     return state.data
+  },
+  zones (state) {
+    return state.zones
   }
 }
 
