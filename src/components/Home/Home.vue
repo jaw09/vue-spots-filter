@@ -22,9 +22,7 @@
             </button>
           </div>
         </div>
-        <spots-block v-for="item in data" :key="item._id" :item="item">
-          <!-- <router-link tag="li" :to="{ name: 'content', params: { id: item._id }}"><a>{{item.Name}}</a></router-link> -->
-        </spots-block>
+        <spots-block v-for="item in data" :key="item._id" :item="item"></spots-block>
       </div>
     </div>
   </div>
@@ -37,7 +35,7 @@ import Filter from './Filter'
 export default {
   data () {
     return {
-      free: true,
+      free: false,
       allDay: false,
       zone: ''
     }
