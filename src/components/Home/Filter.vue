@@ -25,23 +25,16 @@
 
 <script>
 export default {
-  data () {
-    return {
-      allDay: false,
-      free: false
-    }
-  },
+  props: ['allDay', 'free', 'zone'],
   methods: {
     changeZone (e) {
       this.$emit('changeZone', e.target.value)
     },
     changeAllDay () {
-      this.allDay = !this.allDay
-      this.$emit('changeAllDay', this.allDay)
+      this.$emit('changeAllDay', !this.allDay)
     },
     changeFree () {
-      this.free = !this.free
-      this.$emit('changeFree', this.free)
+      this.$emit('changeFree', !this.free)
     }
   },
   computed: {

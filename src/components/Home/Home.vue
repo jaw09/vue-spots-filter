@@ -2,21 +2,24 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <app-filter @changeZone="changeZone" @changeAllDay="changeAllDay" @changeFree="changeFree"></app-filter>
+        <app-filter @changeZone="changeZone" @changeAllDay="changeAllDay" @changeFree="changeFree"
+        :zone="zone"
+        :allDay="allDay"
+        :free="free"></app-filter>
       </div>
       <div class="col-md-8">
         <div class="tag-group my-3">
           <h3>Showing <span class="text-primary">{{data.length}}</span> results by ...</h3>
           <div class="tags">
-            <button v-if="zone !== ''" class="tag">
+            <button v-if="zone !== ''" class="tag" @click="changeZone('')">
               {{zone}}
                 <i class="far fa-times-circle ml-2"></i>
             </button>
-            <button v-if="allDay" class="tag">
+            <button v-if="allDay" class="tag" @click="changeAllDay(false)">
               全天候開放
                 <i class="far fa-times-circle ml-2"></i>
             </button>
-            <button v-if="free" class="tag">
+            <button v-if="free" class="tag" @click="changeFree(false)">
               免費參觀
                 <i class="far fa-times-circle ml-2"></i>
             </button>
@@ -42,13 +45,31 @@ export default {
   },
   methods: {
     changeZone (zone) {
-      this.zone = zone
+      const vm = this
+      vm.zone = zone
+      vm.$store.dispatch('filterData', {
+        allDay: vm.allDay,
+        free: vm.free,
+        zone: vm.zone
+      })
     },
     changeAllDay (allDay) {
-      this.allDay = allDay
+      const vm = this
+      vm.allDay = allDay
+      vm.$store.dispatch('filterData', {
+        allDay: vm.allDay,
+        free: vm.free,
+        zone: vm.zone
+      })
     },
     changeFree (free) {
+      const vm = this
       this.free = free
+      vm.$store.dispatch('filterData', {
+        allDay: vm.allDay,
+        free: vm.free,
+        zone: vm.zone
+      })
     }
   },
   computed: {
