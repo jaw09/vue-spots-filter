@@ -2,10 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <app-filter @changeZone="changeZone" @changeAllDay="changeAllDay" @changeFree="changeFree"
-        :zone="zone"
-        :allDay="allDay"
-        :free="free"></app-filter>
+        <app-filter @changeZone="changeZone" @changeAllDay="changeAllDay" @changeFree="changeFree"></app-filter>
       </div>
       <div class="col-md-8">
         <div class="tag-group my-3">
@@ -23,6 +20,10 @@
               免費參觀
                 <i class="far fa-times-circle ml-2"></i>
             </button>
+            <button v-if="search !== ''" class="tag" @click="searchData">
+              {{search}}
+                <i class="far fa-times-circle ml-2"></i>
+            </button>
           </div>
         </div>
         <spots-block v-for="item in data" :key="item._id" :item="item"></spots-block>
@@ -36,45 +37,63 @@ import SpotsBlock from './SpotsBlock'
 import Filter from './Filter'
 
 export default {
-  data () {
-    return {
-      free: false,
-      allDay: false,
-      zone: ''
-    }
-  },
   methods: {
     changeZone (zone) {
       const vm = this
-      vm.zone = zone
       vm.$store.dispatch('filterData', {
         allDay: vm.allDay,
         free: vm.free,
-        zone: vm.zone
+        zone: zone,
+        search: vm.search
       })
+      vm.$store.dispatch('changeZone', zone)
     },
     changeAllDay (allDay) {
       const vm = this
-      vm.allDay = allDay
       vm.$store.dispatch('filterData', {
-        allDay: vm.allDay,
+        allDay: allDay,
         free: vm.free,
-        zone: vm.zone
+        zone: vm.zone,
+        search: vm.search
       })
+      vm.$store.dispatch('changeAllDay', allDay)
     },
     changeFree (free) {
       const vm = this
-      this.free = free
+      vm.$store.dispatch('filterData', {
+        allDay: vm.allDay,
+        free: free,
+        zone: vm.zone,
+        search: vm.search
+      })
+      vm.$store.dispatch('changeFree', free)
+    },
+    searchData () {
+      const vm = this
       vm.$store.dispatch('filterData', {
         allDay: vm.allDay,
         free: vm.free,
-        zone: vm.zone
+        zone: vm.zone,
+        search: ''
       })
+      vm.$store.dispatch('changeSearch', '')
     }
   },
   computed: {
     data () {
       return this.$store.getters.data
+    },
+    search () {
+      return this.$store.getters.search
+    },
+    allDay () {
+      return this.$store.getters.allDay
+    },
+    free () {
+      return this.$store.getters.free
+    },
+    zone () {
+      return this.$store.getters.zone
     }
   },
   components: {

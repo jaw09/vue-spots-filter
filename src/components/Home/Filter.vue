@@ -25,7 +25,6 @@
 
 <script>
 export default {
-  props: ['allDay', 'free', 'zone'],
   methods: {
     changeZone (e) {
       this.$emit('changeZone', e.target.value)
@@ -40,6 +39,15 @@ export default {
   computed: {
     zones () {
       return this.$store.getters.zones
+    },
+    allDay () {
+      return this.$store.getters.allDay
+    },
+    free () {
+      return this.$store.getters.free
+    },
+    zone () {
+      return this.$store.getters.zone
     }
   }
 }

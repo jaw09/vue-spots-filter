@@ -8,7 +8,11 @@ const state = {
   data: {},
   filterData: [],
   zones: [],
-  used: false
+  used: false,
+  search: '',
+  free: false,
+  allDay: false,
+  zone: ''
 }
 
 const mutations = {
@@ -24,6 +28,18 @@ const mutations = {
   'FILTER_DATA' (state, filterData) {
     state.used = true
     state.filterData = filterData
+  },
+  'CHANGE_SEARCH' (state, keyWord) {
+    state.search = keyWord
+  },
+  'CHANGE_ZONE' (state, keyWord) {
+    state.zone = keyWord
+  },
+  'CHANGE_ALL_DAY' (state, keyWord) {
+    state.allDay = keyWord
+  },
+  'CHANGE_FREE' (state, keyWord) {
+    state.free = keyWord
   }
 }
 
@@ -47,7 +63,7 @@ const actions = {
     let tempZoneData = []
     let tempAllDayData = []
     let tempFreeData = []
-    if (keyWord.allDay === false && keyWord.free === false && keyWord.zone === '') {
+    if (keyWord.allDay === false && keyWord.free === false && keyWord.zone === '' && keyWord.search === '') {
       commit('FILTER_DATA', filterData)
     }
     if (keyWord.zone !== '') {
@@ -72,7 +88,39 @@ const actions = {
       )
     }
     filterData = [...setFilterData]
+    if (keyWord.search !== '') {
+      filterData = filterData.filter(item => {
+        const objs = ['Name', 'Description']
+        let target = false
+        objs.forEach(obj => {
+          if (item[obj].indexOf(keyWord.search) !== -1) {
+            target = true
+          }
+        })
+        return target
+      })
+    }
     commit('FILTER_DATA', filterData)
+  },
+  changeSearch ({
+    commit
+  }, keyWord) {
+    commit('CHANGE_SEARCH', keyWord)
+  },
+  changeZone ({
+    commit
+  }, keyWord) {
+    commit('CHANGE_ZONE', keyWord)
+  },
+  changeAllDay ({
+    commit
+  }, keyWord) {
+    commit('CHANGE_ALL_DAY', keyWord)
+  },
+  changeFree ({
+    commit
+  }, keyWord) {
+    commit('CHANGE_FREE', keyWord)
   }
 }
 
@@ -86,6 +134,18 @@ const getters = {
   },
   zones (state) {
     return state.zones
+  },
+  search (state) {
+    return state.search
+  },
+  zone (state) {
+    return state.zone
+  },
+  allDay (state) {
+    return state.allDay
+  },
+  free (state) {
+    return state.free
   }
 }
 
