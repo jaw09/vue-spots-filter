@@ -1,21 +1,35 @@
-# vue-filter
+# Vue Spots Filter
 
-> A Vue.js project
+建立時間： 6/25/18
 
-## Build Setup
+> Repo by: [Jianan](https://github.com/jaw09)
 
-``` bash
-# install dependencies
+## 網站實例
+
+[DEMO](http://vue-spots-filter.s3-website-ap-southeast-1.amazonaws.com/)
+
+## 實現工具
+
+1.  Vue-cli
+2.  Vuex
+3.  Vue-router
+4.  Axios
+5.  Bootstrap4
+6.  Amazon S3
+7.  高雄資料開放平臺
+
+## Quickstart
+
+```bash
+# 下載專案
+git clone https://github.com/jaw09/vue-spots-filter.git
+
+# 安裝套件
 npm install
 
-# serve with hot reload at localhost:8080
+# 在本地段瀏覽專案
 npm run dev
 
-# build for production with minification
+# 將專案打包輸出
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
